@@ -1,4 +1,5 @@
 public class Venda {
+    private static int contadorID = 1;
     private int vendaID;
     private Carro carro;
     private Cliente cliente;
@@ -7,9 +8,8 @@ public class Venda {
     private String metodoPagamento;
     private String observacoes;
 
-    public Venda(int vendaID, Carro carro, Cliente cliente, String data, double valor,
-                 String metodoPagamento, String observacoes) {
-        this.vendaID = vendaID;
+    public Venda(Carro carro, Cliente cliente, String data, double valor, String metodoPagamento, String observacoes) {
+        this.vendaID = contadorID++;
         this.carro = carro;
         this.cliente = cliente;
         this.data = data;
@@ -20,17 +20,12 @@ public class Venda {
 
     @Override
     public String toString() {
-        return "Venda ID: " + vendaID +
-                "\nCarro: " + carro +
-                "\nCliente: " + cliente +
-                "\nData: " + data +
-                "\nValor: " + String.format("R$ %.2f", valor) +
+        return "ID Venda: " + vendaID + "\nCarro: " + carro + "\nCliente: " + cliente +
+                "\nData: " + data + "\nValor: R$" + valor +
                 "\nMétodo de Pagamento: " + metodoPagamento +
                 "\nObservações: " + observacoes;
     }
-
-    // Getters e Setters
-    public int getVendaID() { return vendaID; }
 }
+
 
 

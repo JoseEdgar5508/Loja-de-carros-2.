@@ -1,4 +1,5 @@
 public class Carro {
+    private static int contadorID = 1;
     private int carroID;
     private String modelo;
     private String marca;
@@ -9,9 +10,8 @@ public class Carro {
     private String chassi;
     private String status;
 
-    public Carro(int carroID, String modelo, String marca, int ano, double preco,
-                 String cor, String placa, String chassi, String status) {
-        this.carroID = carroID;
+    public Carro(String modelo, String marca, int ano, double preco, String cor, String placa, String chassi, String status) {
+        this.carroID = contadorID++;
         this.modelo = modelo;
         this.marca = marca;
         this.ano = ano;
@@ -24,15 +24,9 @@ public class Carro {
 
     @Override
     public String toString() {
-        return "ID: " + carroID + " | " + modelo + " - " + marca + " (" + ano + ") - " +
-                cor + " - Placa: " + placa + " - Chassi: " + chassi + " - " +
-                String.format("R$ %.2f", preco) + " - Status: " + status;
+        return "ID: " + carroID + " | " + modelo + " - " + marca + " (" + ano + ") R$" + preco +
+                " | Cor: " + cor + " | Placa: " + placa + " | Chassi: " + chassi + " | Status: " + status;
     }
-
-    // Getters e Setters
-    public int getCarroID() { return carroID; }
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
 }
 
 

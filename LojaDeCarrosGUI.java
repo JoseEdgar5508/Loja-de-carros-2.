@@ -29,7 +29,8 @@ public class LojaDeCarrosGUI extends JFrame {
     }
 
     private JPanel criarAbaCarros() {
-        JPanel painel = new JPanel(new GridLayout(9, 2, 5, 5));
+        JPanel painel = new JPanel(new GridLayout(9, 2));
+
         JTextField campoModelo = new JTextField();
         JTextField campoMarca = new JTextField();
         JTextField campoAno = new JTextField();
@@ -38,29 +39,19 @@ public class LojaDeCarrosGUI extends JFrame {
         JTextField campoPlaca = new JTextField();
         JTextField campoChassi = new JTextField();
         JTextField campoStatus = new JTextField();
+        JButton btnCadastrar = new JButton("Cadastrar Carro");
 
-        JButton btnCadastrar = new JButton("Cadastrar");
-
-        painel.add(new JLabel("Modelo:"));
-        painel.add(campoModelo);
-        painel.add(new JLabel("Marca:"));
-        painel.add(campoMarca);
-        painel.add(new JLabel("Ano:"));
-        painel.add(campoAno);
-        painel.add(new JLabel("Preço:"));
-        painel.add(campoPreco);
-        painel.add(new JLabel("Cor:"));
-        painel.add(campoCor);
-        painel.add(new JLabel("Placa:"));
-        painel.add(campoPlaca);
-        painel.add(new JLabel("Chassi:"));
-        painel.add(campoChassi);
-        painel.add(new JLabel("Status:"));
-        painel.add(campoStatus);
-        painel.add(new JLabel());
+        painel.add(new JLabel("Modelo:")); painel.add(campoModelo);
+        painel.add(new JLabel("Marca:")); painel.add(campoMarca);
+        painel.add(new JLabel("Ano:")); painel.add(campoAno);
+        painel.add(new JLabel("Preço:")); painel.add(campoPreco);
+        painel.add(new JLabel("Cor:")); painel.add(campoCor);
+        painel.add(new JLabel("Placa:")); painel.add(campoPlaca);
+        painel.add(new JLabel("Chassi:")); painel.add(campoChassi);
+        painel.add(new JLabel("Status:")); painel.add(campoStatus);
         painel.add(btnCadastrar);
 
-        btnCadastrar.addActionListener((ActionEvent e) -> {
+        btnCadastrar.addActionListener(e -> {
             try {
                 String modelo = campoModelo.getText();
                 String marca = campoMarca.getText();
@@ -71,20 +62,12 @@ public class LojaDeCarrosGUI extends JFrame {
                 String chassi = campoChassi.getText();
                 String status = campoStatus.getText();
 
-                Carro carro = new Carro(proximoCarroID++, modelo, marca, ano, preco, cor, placa, chassi, status);
+                Carro carro = new Carro(modelo, marca, ano, preco, cor, placa, chassi, status);
                 carros.add(carro);
-                JOptionPane.showMessageDialog(this, "Carro cadastrado!");
-                // Limpa os campos após cadastro
-                campoModelo.setText("");
-                campoMarca.setText("");
-                campoAno.setText("");
-                campoPreco.setText("");
-                campoCor.setText("");
-                campoPlaca.setText("");
-                campoChassi.setText("");
-                campoStatus.setText("");
+                JOptionPane.showMessageDialog(this, "Carro cadastrado com sucesso!");
+
             } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(this, "Erro: verifique os dados numéricos.");
+                JOptionPane.showMessageDialog(this, "Erro nos dados numéricos (ano ou preço).");
             }
         });
 
@@ -92,124 +75,81 @@ public class LojaDeCarrosGUI extends JFrame {
     }
 
     private JPanel criarAbaClientes() {
-        JPanel painel = new JPanel(new GridLayout(7, 2, 5, 5));
+        JPanel painel = new JPanel(new GridLayout(9, 2));
         JTextField campoNome = new JTextField();
         JTextField campoTelefone = new JTextField();
         JTextField campoEmail = new JTextField();
         JTextField campoCPF = new JTextField();
-        JTextField campoEndereco = new JTextField();
+        JTextField campoCEP = new JTextField();
+        JTextField campoEstado = new JTextField();
+        JTextField campoCidade = new JTextField();
         JButton btnCadastrar = new JButton("Cadastrar");
 
-        painel.add(new JLabel("Nome:"));
-        painel.add(campoNome);
-        painel.add(new JLabel("Telefone:"));
-        painel.add(campoTelefone);
-        painel.add(new JLabel("Email:"));
-        painel.add(campoEmail);
-        painel.add(new JLabel("CPF:"));
-        painel.add(campoCPF);
-        painel.add(new JLabel("Endereço:"));
-        painel.add(campoEndereco);
-        painel.add(new JLabel());
+        painel.add(new JLabel("Nome:")); painel.add(campoNome);
+        painel.add(new JLabel("Telefone:")); painel.add(campoTelefone);
+        painel.add(new JLabel("Email:")); painel.add(campoEmail);
+        painel.add(new JLabel("CPF:")); painel.add(campoCPF);
+        painel.add(new JLabel("CEP:")); painel.add(campoCEP);
+        painel.add(new JLabel("Estado:")); painel.add(campoEstado);
+        painel.add(new JLabel("Cidade:")); painel.add(campoCidade);
         painel.add(btnCadastrar);
 
-        btnCadastrar.addActionListener((ActionEvent e) -> {
-            String nome = campoNome.getText();
-            String telefone = campoTelefone.getText();
-            String email = campoEmail.getText();
-            String cpf = campoCPF.getText();
-            String endereco = campoEndereco.getText();
-
-            if(nome.isEmpty() || cpf.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Nome e CPF são obrigatórios.");
-                return;
-            }
-
-            Cliente cliente = new Cliente(proximoClienteID++, nome, telefone, email, cpf, endereco);
+        btnCadastrar.addActionListener(e -> {
+            Cliente cliente = new Cliente(
+                    campoNome.getText(), campoTelefone.getText(), campoEmail.getText(),
+                    campoCPF.getText(), campoCEP.getText(), campoEstado.getText(), campoCidade.getText()
+            );
             clientes.add(cliente);
             JOptionPane.showMessageDialog(this, "Cliente cadastrado!");
-
-            // Limpar campos
-            campoNome.setText("");
-            campoTelefone.setText("");
-            campoEmail.setText("");
-            campoCPF.setText("");
-            campoEndereco.setText("");
         });
 
         return painel;
     }
 
+
     private JPanel criarAbaVendas() {
-        JPanel painel = new JPanel(new GridLayout(9, 2, 5, 5));
+        JPanel painel = new JPanel(new GridLayout(7, 2));
         JTextField campoIndiceCarro = new JTextField();
         JTextField campoIndiceCliente = new JTextField();
         JTextField campoData = new JTextField();
         JTextField campoValor = new JTextField();
-        JTextField campoMetodoPagamento = new JTextField();
-        JTextField campoObservacoes = new JTextField();
+        JTextField campoMetodo = new JTextField();
+        JTextField campoObs = new JTextField();
         JButton btnRegistrar = new JButton("Registrar Venda");
 
-        painel.add(new JLabel("Índice do Carro:"));
-        painel.add(campoIndiceCarro);
-        painel.add(new JLabel("Índice do Cliente:"));
-        painel.add(campoIndiceCliente);
-        painel.add(new JLabel("Data da Venda:"));
-        painel.add(campoData);
-        painel.add(new JLabel("Valor:"));
-        painel.add(campoValor);
-        painel.add(new JLabel("Método de Pagamento:"));
-        painel.add(campoMetodoPagamento);
-        painel.add(new JLabel("Observações:"));
-        painel.add(campoObservacoes);
-        painel.add(new JLabel());
+        painel.add(new JLabel("Índice do Carro:")); painel.add(campoIndiceCarro);
+        painel.add(new JLabel("Índice do Cliente:")); painel.add(campoIndiceCliente);
+        painel.add(new JLabel("Data da Venda:")); painel.add(campoData);
+        painel.add(new JLabel("Valor:")); painel.add(campoValor);
+        painel.add(new JLabel("Método de Pagamento:")); painel.add(campoMetodo);
+        painel.add(new JLabel("Observações:")); painel.add(campoObs);
         painel.add(btnRegistrar);
 
-        btnRegistrar.addActionListener((ActionEvent e) -> {
+        btnRegistrar.addActionListener(e -> {
             try {
                 int idxCarro = Integer.parseInt(campoIndiceCarro.getText());
                 int idxCliente = Integer.parseInt(campoIndiceCliente.getText());
                 String data = campoData.getText();
                 double valor = Double.parseDouble(campoValor.getText());
-                String metodoPagamento = campoMetodoPagamento.getText();
-                String observacoes = campoObservacoes.getText();
+                String metodo = campoMetodo.getText();
+                String obs = campoObs.getText();
 
-                if (idxCarro < 0 || idxCarro >= carros.size()) {
-                    JOptionPane.showMessageDialog(this, "Índice do carro inválido.");
-                    return;
-                }
-                if (idxCliente < 0 || idxCliente >= clientes.size()) {
-                    JOptionPane.showMessageDialog(this, "Índice do cliente inválido.");
-                    return;
-                }
-                if (data.isEmpty()) {
-                    JOptionPane.showMessageDialog(this, "Data da venda é obrigatória.");
-                    return;
-                }
-                if (metodoPagamento.isEmpty()) {
-                    JOptionPane.showMessageDialog(this, "Método de pagamento é obrigatório.");
+                if (idxCarro < 0 || idxCarro >= carros.size() || idxCliente < 0 || idxCliente >= clientes.size()) {
+                    JOptionPane.showMessageDialog(this, "Índices inválidos.");
                     return;
                 }
 
-                Venda venda = new Venda(proximoVendaID++, carros.get(idxCarro), clientes.get(idxCliente),
-                        data, valor, metodoPagamento, observacoes);
+                Venda venda = new Venda(carros.get(idxCarro), clientes.get(idxCliente), data, valor, metodo, obs);
                 vendas.add(venda);
                 JOptionPane.showMessageDialog(this, "Venda registrada!");
-
-                // Limpar campos após registro
-                campoIndiceCarro.setText("");
-                campoIndiceCliente.setText("");
-                campoData.setText("");
-                campoValor.setText("");
-                campoMetodoPagamento.setText("");
-                campoObservacoes.setText("");
             } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(this, "Erro: verifique os dados numéricos.");
+                JOptionPane.showMessageDialog(this, "Erro: verifique os dados.");
             }
         });
 
         return painel;
     }
+
 
     private JPanel criarAbaConsultas() {
         JPanel painel = new JPanel(new FlowLayout());
